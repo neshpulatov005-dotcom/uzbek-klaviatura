@@ -16,7 +16,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Install Gradle
-        run: sudo apt-get update && sudo apt-get install -y gradle
+      - name: Install Modern Gradle
+        run: |
+          wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
+          unzip gradle-8.5-bin.zip
+          sudo mv gradle-8.5 /opt/gradle
+          echo "/opt/gradle/bin" >> $GITHUB_PATH
       - name: Build APK
         run: gradle assembleDebug
